@@ -1,0 +1,48 @@
+// global variables
+
+$paragraph_text: #323232;
+$text_label:#AFAFAF;
+$text_field:#E1E1E1;
+$text_backgd:#FAFAFA;
+$nav_background_fill:#323232;
+$primaryCTA_text_link:#0095FF;
+$primary_CTA_hover:#0065AD;
+
+$pink:#fd3ba7;
+$black:#1A1A1A;
+$grey:#F9F9F9;
+$white:#FFFFFF;
+
+$mobile:320px;
+$mobile_margin: 16px;
+$desk:1440px;
+$max-tablet:1439px;
+$desk_margin: 180px;
+$max-mobile:767px;
+$tablet:768px;
+$tablet_margin: 24px;
+
+
+@mixin set_margin(){
+    @media (min-width:$mobile) {
+        margin:0 $mobile_margin;
+    }
+    @media (min-width:$tablet) {
+        margin:0 $tablet_margin;
+    }
+    @media (min-width:$desk) {
+        margin:0 $desk_margin;
+    }
+}
+
+@mixin set_height($h1,$h2,$h3){
+    @media (min-width:$mobile) {
+        max-height: $h1;
+    }
+    @media (min-width:$tablet) {
+        max-height: $h2;
+    }
+    @media (min-width:$desk) {
+        max-height: $h3;
+    }
+}

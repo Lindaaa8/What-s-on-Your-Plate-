@@ -1,0 +1,34 @@
+@import '../styles/global.scss';
+.box{
+    @include set_margin();
+    .box__input{
+        background: rgb(255, 255, 255);
+        border: 2px rgb(245, 96, 146) dashed;
+        border-radius: 20px;
+        width: 25%;
+        height: 8rem;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        & > * {
+            width: 100%;
+        }
+        input{
+            width: 100%;
+            height: 100%;
+        }
+        .msg_box{
+            width: 25%;
+            height: 8rem;
+            border: 2px purple solid;
+            border-radius: 5px;
+            
+        }
+        .subit_cta{
+            width: 25%;
+            height: 8rem;
+            border: 2px green solid;
+            border-radius: 5px;
+        }
+    }
+}

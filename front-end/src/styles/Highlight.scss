@@ -1,0 +1,8 @@
+@import '../styles/global.scss';
+article{
+    width: 60%;
+    @include set_margin();
+    img{
+        width: 80%;
+    }
+}
