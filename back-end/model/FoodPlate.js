@@ -11,11 +11,11 @@ const foodSchema = new mongoose.Schema({
     },
     imgURL: {
       type: String,
-      default: Date.now
+      required:true
     },
     date: {
       type: Array,
-      default:null
+      default:[Date.now]
     },
     message:{
       type: String,

@@ -2,7 +2,44 @@
 article{
     width: 60%;
     @include set_margin();
-    img{
-        width: 80%;
+    .bowl{
+        img{
+            width: 80%;
+        }
+        .bowl__container{
+            background:black;
+            position: absolute;
+            right: 50%px;
+            top: 80%;
+            opacity: 0.8;
+            border-radius: 10px;
+            .bowl__content{
+                &:hover{
+                    visibility:visible;
+                }
+                visibility: hidden;
+                visibility:visible;
+                // position: absolute;
+                // left: 500px;
+                // top: 800px;
+                border-radius: 10px;
+                padding: 20px;
+                background: pink;
+                & > * {
+                    color: white;
+                }
+            }
+        }
+    }
+    h1{
+        @include h1;
+    }
+    .here{
+        border-radius: 10px;
+        border:4px pink solid;
+    }
+    p{
+        @include h2;
+        font-weight: bold;
     }
 }

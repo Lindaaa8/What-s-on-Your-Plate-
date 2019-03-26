@@ -13,6 +13,7 @@
     "react-dropzone": "^10.0.5",
     "react-s3-uploader": "^4.8.0",
     "react-scripts": "2.1.8",
+    "react-switch": "^4.1.0",
     "superagent": "^4.1.0"
   },
   "scripts": {

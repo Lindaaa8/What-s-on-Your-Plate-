@@ -1,34 +1,68 @@
 @import '../styles/global.scss';
-.box{
-    @include set_margin();
-    .box__input{
-        background: rgb(255, 255, 255);
-        border: 2px rgb(245, 96, 146) dashed;
-        border-radius: 20px;
-        width: 25%;
-        height: 8rem;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        & > * {
-            width: 100%;
+.uploadSection{
+    margin-left: 3rem;
+    .box{
+        padding-top: 6%;
+        border-radius: 5px;
+        @include set_margin();
+        
+        width: 30%;
+        left: 40%;
+        h2{
+            @include h2;
         }
-        input{
+        .box__input{
+            // position: right;
+            background: rgb(250, 243, 243);
+            border: 2px rgb(245, 96, 146) dashed;
+            border-radius: 5px;
             width: 100%;
-            height: 100%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            align-items: center;
+            height: 8rem;
+            margin-bottom: 1rem;
+            input {
+                @include h2;
+                font-size: large;
+                width: 80%;
+            }
         }
         .msg_box{
-            width: 25%;
-            height: 8rem;
-            border: 2px purple solid;
+            &::placeholder {
+                @include h4;
+                padding:1em 2rem;
+              }
+            width: 100%;
+            border: 2px rgb(245, 96, 146) solid;
             border-radius: 5px;
+            height: 4rem;
+            margin-bottom: 0.5rem;
             
         }
-        .subit_cta{
-            width: 25%;
-            height: 8rem;
-            border: 2px green solid;
-            border-radius: 5px;
+        button{
+            left: 65%;
+            font-size: large;
+            background: rgb(238, 103, 148);
+            width: 100%;
+            height: 3rem;
+            border: 2px  rgba(247, 221, 221, 0.911) solid;
+            border-radius: 10rem;
+            margin-bottom: 0.5rem;
+            &:hover{
+                background: rgb(245, 96, 146);
+                transition-property: background;
+                transition-duration: 2s;
+                transition-timing-function: linear;
+                border-radius: 5px;
+                &:hover {
+                    background:  #2db34a;
+                }
+            }
+        }
+        .box__uploading{
+            @include h3;
         }
     }
 }

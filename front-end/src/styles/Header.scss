@@ -2,10 +2,13 @@
 
 
 .header{
-    @include set_margin();
+    background: #c0056c;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    & > * {
+        @include set_margin();
+    }
     nav{
         display: flex;
         justify-content: space-between;
@@ -19,11 +22,13 @@
             align-items: center;
             justify-content: space-around;
             padding: 0;
-            width: 60%;
+            width: 40%;
             list-style-type: none;
             & > * {
                 display: inline;
                 text-decoration: none;
+                padding-left: 1rem;
+                padding-right: 1rem;
                 // &:hover{
                 //     color:$pink;
                 // }
@@ -31,14 +36,18 @@
                     color:$black;
                 }
                 .chosen{
-                    color:$pink;
+                    color:$white;
                 }
+                @include h2;
+                font-weight: bold;
             }
         }
     }
     button{
-        border-radius: 50px;
-        height: 1.5rem;
+        @include h2;
+        font-weight: bold;
+        border-radius: 10rem;
+        height:3rem;
         width: 13%;
         background: white;
         border: 1px #fd3ba7 solid;

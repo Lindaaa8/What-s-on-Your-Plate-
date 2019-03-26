@@ -1,9 +1,7 @@
-
 require('dotenv').config();
 const express = require('express');
 const bodyParser= require('body-parser');
 const mongoose = require('mongoose');
-var VisualRecognitionV3 = require('watson-developer-cloud/visual-recognition/v3');
 
 const app = express();
 app.use(bodyParser.urlencoded({extended:false}));
@@ -34,17 +32,6 @@ app.get('/s3/sign', (req, res)=>{
   });
 })
 
-
-
-// app.use('/s3', require('react-s3-uploader/s3router')({
-//   bucket: "linda.aqua.brainstation",
-//   region: 'us-west-1', //optional
-//   headers: {'Access-Control-Allow-Origin': '*'}, // optional
-//   ACL: 'private', // this is default
-//   uniquePrefix: true // (4.0.2 and above) default is true, setting the attribute to false preserves the original filename in S3
-// }));
-
-
 const FoodPlate = require('./model/FoodPlate');
 mongoose.connect('mongodb://127.0.0.1:27017/whats-on-your-plate', { useNewUrlParser: true });
 const db = mongoose.connection;
@@ -54,53 +41,62 @@ db.once('open', () => {
 });
 
 // use the url and upload it to database
-// let url= 'https://watson-developer-cloud.github.io/doc-tutorial-downloads/visual-recognition/640px-IBM_VGA_90X8941_on_PS55.jpg';
-function createNewPlate(url,msg) {
+var VisualRecognitionV3 = require('watson-developer-cloud/visual-recognition/v3');
+let url= 'https://watson-developer-cloud.github.io/doc-tutorial-downloads/visual-recognition/640px-IBM_VGA_90X8941_on_PS55.jpg';
+function createNewPlate(url,msg, cb) {
   var visualRecognition = new VisualRecognitionV3({
     version: '2018-03-19',
     iam_apikey: 'WVU_73eu5RtEEMBJAtyXChoRcHT8UTPtRVX5CGe--NUz'
   });
+  var classifier_ids = ["food"];
   let message = msg;
   var params = {
     url: url,
+    classifier_id:classifier_ids
   };
-  
+  let retval = false;
   visualRecognition.classify(params, function(err, response) {
     if (err) {
       console.log(err);
     } else {
-      let rep_object = response.images[0].classifiers[0];
-      console.log(response);
-      let current_datetime = new Date();
-      let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate() + " " + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds();
-      let foodClass = rep_object.classes[0];
-      if (foodClass.class.includes('food')|| (foodClass.type_hierarchy && foodClass.type_hierarchy.includes('food'))) {
-        let newPlate = new FoodPlate({
-          name:foodClass.class,
-          type:foodClass.type_hierarchy || 'unknown',
-          imgURL:url,
-          date:formatted_date,
-          message:message
-        })
-        newPlate.save()
-        .then(newPlate => {
-            console.log('new Plate saved:',newPlate);
-        })
-        .catch(err => {
-            console.log(err);
-        })
+      if (response.images.length > 0) {
+        let classifiers = response.images[0].classifiers;
+        if (classifiers.length > 0) {
+          for (let item of classifiers) {
+            let current_datetime = new Date();
+            let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate() + " " + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds();
+            let foodClass = item.classes[0];
+            if (foodClass.class.includes('food')|| (foodClass.type_hierarchy && foodClass.type_hierarchy.includes('food'))) {
+              let newPlate = new FoodPlate({
+                name:foodClass.class,
+                type:foodClass.type_hierarchy || 'unknown',
+                imgURL:url,
+                date:formatted_date,
+                message:message
+              })
+              newPlate.save()
+              .then(newPlate => {
+                  console.log('new Plate saved:',newPlate);
+                  // console.log('1');
+                  retval = true;
+                  return cb(newPlate)
+              })
+              .catch(err => {
+                  console.log(err);
+                  return cb(null);
+              })
+              //
+            }
+          }
+        }
+      }
     }
-  }
   });
+  return retval;
 }
-
-
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-
-
 
 app.get('/myplate',(req,res)=>{
   FoodPlate.find({}).then(objectsArray => {
@@ -108,10 +104,11 @@ app.get('/myplate',(req,res)=>{
   })
   .catch(err => {
     console.log(err);
-    res.status(400)
+    res.status(404)
       .json({err});
   })
 })
+
 
 app.get('/myplate/:id',(req,res)=>{
   FoodPlate.findById(req.params.id).then(object => {
@@ -124,28 +121,42 @@ app.get('/myplate/:id',(req,res)=>{
   })
 
 })
-app.post('/myplate', (req, res) => {
-    createNewPlate(req.body.url, req.body.msg);
-});
+
+ app.post('/myplate', (req, res) => {
+   console.log('myplate post was hit');
+   
+  let retval = createNewPlate(req.body.url, req.body.msg, (result)=>{
+    if (result) {
+      res.json(result);
+    } else {
+      console.log('err');
+      res.status(400).json({data:'err'});
+    }
+  });
+ });
 
 // add date 
 app.put('/myplate/:id',(req,res)=>{
-  let current_datetime = new Date();
-  let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate() + " " + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds();
-  let date_list = req.body.date;
-  date_list.push(formatted_date);
+  console.log(req.body);
   let query = {
     "_id":req.params.id
   };
+  console
   let update = {
-    "date":date_list
+    "date":req.body.date,
+    "name":req.body.name,
+    "message":req.body.message
   };
   let option = {
     new:true,
     runValidator:true
   };
+  console.log('update =');
+  console.log(update);
   FoodPlate.findOneAndUpdate(query,update,option).then(
     updatedItem=>{
+      console.log('updated!');
+      console.log(updatedItem);
       res.json(updatedItem);
     }
 

@@ -1,14 +1,39 @@
 // global variables
 
+@font-face {
+    font-family: 'AvenirNextRegular';
+    src: url('../Assets/fonts/AvenirNextLTPro-Regular.woff2') format('woff2'),
+        url('../Assets/fonts/AvenirNextLTPro-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'AvenirNextBold';
+    src: url('../Assets/fonts/AvenirNextLTPro-Bold.woff2') format('woff2'),
+        url('../Assets/fonts/AvenirNextLTPro-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AvenirNextDemiBold';
+    src: url('../Assets/fonts/AvenirNextLTPro-Demi.woff2') format('woff2'),
+        url('../Assets/fonts/AvenirNextLTPro-Demi.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
 $paragraph_text: #323232;
 $text_label:#AFAFAF;
 $text_field:#E1E1E1;
-$text_backgd:#FAFAFA;
 $nav_background_fill:#323232;
 $primaryCTA_text_link:#0095FF;
 $primary_CTA_hover:#0065AD;
+$alabaster: #FAFAFA;
+$silver: #AFAFAF;
 
 $pink:#fd3ba7;
+$shallow_pink: rgb(245, 96, 146);
 $black:#1A1A1A;
 $grey:#F9F9F9;
 $white:#FFFFFF;
@@ -31,7 +56,7 @@ $tablet_margin: 24px;
         margin:0 $tablet_margin;
     }
     @media (min-width:$desk) {
-        margin:0 $desk_margin;
+        margin:0 $tablet_margin;
     }
 }
 
@@ -45,4 +70,86 @@ $tablet_margin: 24px;
     @media (min-width:$desk) {
         max-height: $h3;
     }
+}
+
+
+@mixin hero {
+    font-family: 'AvenirNextBold';
+    font-size: 24px;
+    line-height: 32px;
+    @media (min-width: 600px) {
+        font-size: 60px;
+        line-height: 68px;  
+    }
+}
+
+@mixin h1 {
+    font-family: 'AvenirNextBold';
+    font-size: 24px;
+    line-height: 32px;
+
+    @media (min-width: $tablet) {
+        font-size: 36px;
+        line-height: 44px; 
+    }    
+}
+
+@mixin h2 {
+    font-family: 'AvenirNextRegular';
+    font-size: 24px;
+    line-height: 32px;
+
+    @media (max-width: $mobile) {
+        font-size: 14px;
+        line-height: 22px; 
+    }
+}
+
+@mixin h3 {
+    font-family: 'AvenirNextRegular';
+    font-size: 16px;
+    line-height: 24px;
+
+    @media (max-width: $mobile) {
+        font-size: 13px;
+        line-height: 18px; 
+    }
+}
+
+@mixin h4 {
+    font-size: 14px;
+    line-height: 22px;
+
+    @media (max-width: $mobile) {
+        font-size: 13px;
+        line-height: 18px; 
+    }
+}
+
+@mixin p {
+    font-family: 'AvenirNextRegular';
+    font-size: 14px;
+    line-height: 22px;
+
+    @media (max-width: $mobile) {
+        font-size: 13px;
+        line-height: 18px; 
+    }
+}
+
+@mixin list {
+    font-family: 'AvenirNextRegular';
+    font-size: 14px;
+    line-height: 20px;
+
+    @media (max-width: $mobile) {
+        font-size: 13px;
+        line-height: 18px; 
+    }
+}
+
+@mixin labels {
+    font-family: 'AvenirNextRegular';
+    font-size: 12px;
+    line-height: 20px;
 }

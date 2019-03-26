@@ -1,0 +1,85 @@
+@import '../styles/global.scss';
+
+.album{
+    h2{
+        @include h2;
+    }
+    // @include set_margin();
+    margin: 0;
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    right: 1rem;
+    
+        background: #2db34a;
+        transition-property: background;
+        transition-duration: 1s;
+        transition-timing-function: linear;
+        border-radius: 5px;
+      
+      &:hover {
+        background: rgb(245, 96, 146);
+        opacity: 0.8;
+      }
+      
+                    
+    &__title{
+        padding-left: 0.5rem;
+        text-align: right;
+        margin-top: 4rem;
+    }
+    &__container {
+        // right: 10%;
+        // margin:0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        // flex-direction: row-reverse;
+        justify-content: left;
+        align-content: center;
+        .album__container{
+            margin: 0;
+            width: 800px;
+            display: flex;
+            flex-wrap: wrap;
+            &:hover{
+                box-shadow: 10px 5px 10px 0px rgba(247, 221, 221, 0.911);
+                background-color: #aafc40;
+                cursor: pointer;
+            }
+        }
+        .photo__container {
+            display:inline-block;
+            height:150px;
+            position:relative;
+            width:200px;
+            // width: 25%;
+            border:1px solid white;
+    
+        }
+        .album__img{
+            margin-right: 2px;
+            margin-bottom: 2px;
+            // box-shadow: 10px 5px 10px 0px rgba($color: #e7dc3b, $alpha: 0.25);
+            // background: linear-gradient(to left, rgba(0,0,0,0.01), #000000);
+            // opacity: 1;
+            border: 5px solid white;
+            cursor:pointer;
+            display:block;
+            height:100%;
+            left:0px;
+            position:absolute;
+            top:0px;
+            width:100%;
+            z-index:1;
+            img{
+                box-shadow: 10px 5px 10px 0px rgba($color: #e7dc3b, $alpha: 0.25);
+                background: linear-gradient(to left, rgba(0,0,0,0.01), #000000);
+                border-radius: 10px;
+                opacity: 1;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+}
