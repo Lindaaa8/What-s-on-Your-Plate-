@@ -4,6 +4,7 @@ import Highlight from './components/Highlight';
 import Header from './components/Header';
 import Card from './components/Card';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import Inspiration from './components/Inspiration';
 
 
 
@@ -39,7 +40,7 @@ this.props.onClose && this.props.onClose(e);
               <Route path="/myplate/:id" component={Card}/>
               <Route path='/home' component={Highlight}/>
               <Route path='/myplate' component={Upload} />
-              <Route path='/inspiration'/>
+              <Route path='/inspiration' component={Inspiration}/>
               <Route exact path='/' render={()=>(<Redirect to='/home' /> )} />
             </Switch>
           </div>

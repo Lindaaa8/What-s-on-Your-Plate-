@@ -129,7 +129,6 @@ app.get('/myplate/:id',(req,res)=>{
     if (result) {
       res.json(result);
     } else {
-      console.log('err');
       res.status(400).json({data:'err'});
     }
   });
@@ -137,11 +136,9 @@ app.get('/myplate/:id',(req,res)=>{
 
 // add date 
 app.put('/myplate/:id',(req,res)=>{
-  console.log(req.body);
   let query = {
     "_id":req.params.id
   };
-  console
   let update = {
     "date":req.body.date,
     "name":req.body.name,
@@ -151,17 +148,12 @@ app.put('/myplate/:id',(req,res)=>{
     new:true,
     runValidator:true
   };
-  console.log('update =');
-  console.log(update);
   FoodPlate.findOneAndUpdate(query,update,option).then(
     updatedItem=>{
-      console.log('updated!');
-      console.log(updatedItem);
       res.json(updatedItem);
     }
 
   ).catch(err=>{
-    console.log(err);
     res.status(400).json({err});
   })
 })
@@ -173,7 +165,6 @@ app.delete('/myplate/:id',(req,res)=>{
     }
 
   ).catch(err=>{
-    console.log(err);
     res.status(400).json({err});
   }
 

@@ -52,20 +52,6 @@ export default class Card extends Component {
         date_list.push(formatted_date);
         body.date = date_list;
         
-        // let postUrl = "http://localhost:8080/myplate";
-
-        // console.log(body)
-
-        // let config = {
-        //     method: "POST",
-        //     url: postUrl,
-        //     data: body,
-        //     headers: {
-        //       'content-type': 'application/json'
-        //     }};
-      
-        // console.log(config.data);
-
             const id = this.props.match.params.id;
             axios.put(`http://localhost:8080/myplate/${id}`,body)
             .then((resp) =>
@@ -73,7 +59,6 @@ export default class Card extends Component {
             .catch((err) =>
                 console.log(err))
                 
-          //e.target.reset();
           this.onToggle();
     }
 
@@ -103,11 +88,6 @@ export default class Card extends Component {
 
   render() {
      let pic = this.state.data;
-    // console.log('pic: ',pic);
-    // if (pic === {}) {
-    //     console.log('loading');
-    //     return null;
-    // }
     if(!this.state.checked){
         return null;
     }

@@ -1,12 +1,20 @@
 @import '../styles/global.scss';
-article{
+
+.content{
+    padding-top: 4rem;
     width: 60%;
     @include set_margin();
     .bowl{
+        width: 50%;
+        padding-top: 4rem;
+        position: absolute;
+        left: 40%;
         img{
-            width: 80%;
+            padding-right: 2rem;
+            width: 100%;
         }
         .bowl__container{
+            width: 100%;
             background:black;
             position: absolute;
             right: 50%px;
@@ -35,6 +43,7 @@ article{
         @include h1;
     }
     .here{
+        width: 50%;
         border-radius: 10px;
         border:4px pink solid;
     }
