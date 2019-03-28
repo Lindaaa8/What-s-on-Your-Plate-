@@ -40,13 +40,14 @@ db.once('open', () => {
     console.log("Connected to db at /data/db/")
 });
 
+// 'WVU_73eu5RtEEMBJAtyXChoRcHT8UTPtRVX5CGe--NUz'
 // use the url and upload it to database
 var VisualRecognitionV3 = require('watson-developer-cloud/visual-recognition/v3');
 let url= 'https://watson-developer-cloud.github.io/doc-tutorial-downloads/visual-recognition/640px-IBM_VGA_90X8941_on_PS55.jpg';
 function createNewPlate(url,msg, cb) {
   var visualRecognition = new VisualRecognitionV3({
     version: '2018-03-19',
-    iam_apikey: 'WVU_73eu5RtEEMBJAtyXChoRcHT8UTPtRVX5CGe--NUz'
+    iam_apikey: process.env.AWS_ACCESS_KEY_ID
   });
   var classifier_ids = ["food"];
   let message = msg;
