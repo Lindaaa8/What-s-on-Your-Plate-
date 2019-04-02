@@ -40,10 +40,7 @@ db.once('open', () => {
     console.log("Connected to db at /data/db/")
 });
 
-// 'WVU_73eu5RtEEMBJAtyXChoRcHT8UTPtRVX5CGe--NUz'
-// use the url and upload it to database
 var VisualRecognitionV3 = require('watson-developer-cloud/visual-recognition/v3');
-let url= 'https://watson-developer-cloud.github.io/doc-tutorial-downloads/visual-recognition/640px-IBM_VGA_90X8941_on_PS55.jpg';
 function createNewPlate(url,msg, cb) {
   var visualRecognition = new VisualRecognitionV3({
     version: '2018-03-19',
@@ -78,7 +75,6 @@ function createNewPlate(url,msg, cb) {
               newPlate.save()
               .then(newPlate => {
                   console.log('new Plate saved:',newPlate);
-                  // console.log('1');
                   retval = true;
                   return cb(newPlate)
               })
